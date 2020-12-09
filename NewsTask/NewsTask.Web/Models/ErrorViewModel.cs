@@ -1,5 +1,3 @@
-using System;
-
 namespace NewsTask.Web.Models
 {
     public class ErrorViewModel

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NewsTask.Services;
+using NewsTask.Services.Contracts;
 using NewsTask.Web.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NewsTask.Web.Controllers
@@ -12,14 +11,17 @@ namespace NewsTask.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly INewsService _newsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INewsService newsService)
         {
             _logger = logger;
+            _newsService = newsService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            await _newsService.GetTopHeadlines();
             return View();
         }
 
