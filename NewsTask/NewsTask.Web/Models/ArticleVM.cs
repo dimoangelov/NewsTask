@@ -5,7 +5,7 @@ namespace NewsTask.Web.Models
 {
     public class ArticleVM
     {
-        public Source Source { get; set; }
+        public SourceVM Source { get; set; }
 
         public string Author { get; set; }
 

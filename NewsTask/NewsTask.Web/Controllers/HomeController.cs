@@ -29,14 +29,19 @@ namespace NewsTask.Web.Controllers
 
             var listArticles = await _newsService.GetTopHeadlines(pageSize, category, country);
 
-            var listArticlevVM = listArticles.Adapt<IEnumerable<ArticleVM>>();
+            var listArticlesVM = listArticles.Adapt<IEnumerable<ArticleVM>>();
 
-            return View(listArticlevVM);
+            return View(listArticlesVM);
         }
 
-        public IActionResult Archive()
+        public async Task<IActionResult> Archive(string searchString, int pageSize, SortOrder sort, DateTime from, DateTime to)
         {
-            return View();
+
+            var listArticles = await _newsService.SearchArchive(searchString, pageSize, sort, from, to );
+
+            var listArticlesVM = listArticles.Adapt<IEnumerable<ArticleVM>>();
+
+            return View(listArticlesVM);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

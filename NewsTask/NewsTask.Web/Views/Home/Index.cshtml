@@ -15,9 +15,7 @@
                             <select name="country" class="form-control" asp-items="@Html.GetEnumSelectList<NewsTask.Data.Enums.Country>()"></select>
                             <select name="category" class="form-control" asp-items="@Html.GetEnumSelectList<NewsTask.Data.Enums.Category>()"></select>
                             <input type="number" name="pageSize" placeholder="Number of Results" />
-                            <input name="from" type="date" textmode="Date" />
                             <input type="submit" value="Get Top News" class="btn btn-outline-success" />
-
                         </div>
                     </form>
                 </div>
@@ -26,7 +24,7 @@
     </div>
 </div>
 
-<table class="table">
+<table class="table table-hover table-striped table">
     <thead>
         <tr>
             <th>
@@ -66,7 +64,7 @@
 
                 </td>
                 <td>
-                    <img src="@(item.UrlToImage ?? "https://www.flaticon.com/svg/static/icons/svg/71/71036.svg")" style="height: 50px ; width: auto;" alt="image">
+                    <img src="@(item.UrlToImage ?? "https://www.flaticon.com/svg/static/icons/svg/71/71036.svg")" class="img-thumbnail"  alt="image">
                 </td>
 
             </tr>

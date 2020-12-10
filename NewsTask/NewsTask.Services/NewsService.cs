@@ -35,14 +35,14 @@ namespace NewsTask.Services
 
             var jObj = JObject.Parse(responseAsString);
 
-            IList<JToken> result = jObj["articles"].Children().ToList();
+            IList<JToken> resultList = jObj["articles"].Children().ToList();
 
             IList<Article> listArticles = new List<Article>();
 
-            foreach (JToken article in result)
+            foreach (JToken item in resultList)
             {
-                Article art = article.ToObject<Article>();
-                listArticles.Add(art);
+                Article article = item.ToObject<Article>();
+                listArticles.Add(article);
             }
 
             return listArticles;
@@ -66,14 +66,14 @@ namespace NewsTask.Services
 
             var jObj = JObject.Parse(responseAsString);
 
-            IList<JToken> result = jObj["articles"].Children().ToList();
+            IList<JToken> resultList = jObj["articles"].Children().ToList();
 
             IList<Article> listArticles = new List<Article>();
 
-            foreach (JToken article in result)
+            foreach (JToken item in resultList)
             {
-                Article art = article.ToObject<Article>();
-                listArticles.Add(art);
+                Article article = item.ToObject<Article>();
+                listArticles.Add(article);
             }
 
             return listArticles;
