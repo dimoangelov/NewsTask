@@ -1,4 +1,4 @@
-﻿namespace NewsTask.Services.Models
+﻿namespace NewsTask.Data.Models
 {
     public class Source
     {

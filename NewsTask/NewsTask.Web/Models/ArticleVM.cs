@@ -1,5 +1,4 @@
-﻿using NewsTask.Services.Enums;
-using NewsTask.Services.Models;
+﻿using NewsTask.Data.Models;
 using System;
 
 namespace NewsTask.Web.Models
@@ -16,14 +15,10 @@ namespace NewsTask.Web.Models
 
         public string Url { get; set; }
 
-        public string UrlToImage { get; set; }
+        public string UrlToImage { get; set; } 
 
         public DateTime PublishedAt { get; set; }
 
         public string Content { get; set; }
-
-        //public Country Country { get; set; }
-
-        //public Category Category { get; set; }
     }
 }

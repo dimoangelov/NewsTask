@@ -1,6 +1,6 @@
-﻿using NewsTask.Services.Contracts;
-using NewsTask.Services.Enums;
-using NewsTask.Services.Models;
+﻿using NewsTask.Data.Enums;
+using NewsTask.Data.Models;
+using NewsTask.Services.Contracts;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,10 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NewsTask.Data.Enums;
 using NewsTask.Services.Contracts;
-using NewsTask.Services.Enums;
 using NewsTask.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -23,10 +24,14 @@ namespace NewsTask.Web.Controllers
 
         public async Task<IActionResult> Index(int pageSize, Category category, Country country)
         {
+            if (pageSize == 0)
+                pageSize = 20;
 
-            var list = await _newsService.GetTopHeadlines(20, category, country);
-            var listVM = list.Adapt<IEnumerable<ArticleVM>>();
-            return View(listVM);
+            var listArticles = await _newsService.GetTopHeadlines(pageSize, category, country);
+
+            var listArticlevVM = listArticles.Adapt<IEnumerable<ArticleVM>>();
+
+            return View(listArticlevVM);
         }
 
         public IActionResult Archive()

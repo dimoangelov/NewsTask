@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NewsTask.Services.Models
+namespace NewsTask.Data.Models
 {
     public class Article
     {

@@ -1,4 +1,4 @@
-﻿namespace NewsTask.Services.Enums
+﻿namespace NewsTask.Data.Enums
 {
     public enum SortOrder
     {

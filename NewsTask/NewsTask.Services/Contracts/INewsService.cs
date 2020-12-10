@@ -1,5 +1,5 @@
-﻿using NewsTask.Services.Enums;
-using NewsTask.Services.Models;
+﻿using NewsTask.Data.Enums;
+using NewsTask.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
