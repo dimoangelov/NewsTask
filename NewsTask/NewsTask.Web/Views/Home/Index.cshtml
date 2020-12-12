@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<ArticleVM>
 
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -23,6 +24,9 @@
         </div>
     </div>
 </div>
+
+
+<a type="submit" class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Excel">Archive</a>
 
 <table class="table table-hover table-striped table">
     <thead>
@@ -64,7 +68,7 @@
 
                 </td>
                 <td>
-                    <img src="@(item.UrlToImage ?? "https://www.flaticon.com/svg/static/icons/svg/71/71036.svg")" class="img-thumbnail"  alt="image">
+                    <img src="@(item.UrlToImage ?? "https://www.flaticon.com/svg/static/icons/svg/71/71036.svg")" class="img-thumbnail" alt="image">
                 </td>
 
             </tr>
