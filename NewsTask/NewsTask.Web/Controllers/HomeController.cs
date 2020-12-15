@@ -123,7 +123,6 @@ namespace NewsTask.Web.Controllers
             string fileName = "Output.pdf";
 
             return File(stream, contentType, fileName);
-
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
