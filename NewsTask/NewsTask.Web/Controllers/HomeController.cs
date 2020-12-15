@@ -1,11 +1,12 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NewsTask.Data.Enums;
 using NewsTask.Services.Contracts;
 using NewsTask.Web.Models;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Grid;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace NewsTask.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly INewsService _newsService;
-        private static List<ArticleVM> articlesTest = new List<ArticleVM>();
+        private static List<ArticleVM> tempDataStorage = new List<ArticleVM>();
 
         public HomeController(ILogger<HomeController> logger, INewsService newsService)
         {
@@ -36,22 +37,29 @@ namespace NewsTask.Web.Controllers
 
             var listArticlesVM = listArticles.Adapt<IEnumerable<ArticleVM>>();
 
-            articlesTest = listArticlesVM.ToList();
+            tempDataStorage = listArticlesVM.ToList();
 
             return View(listArticlesVM);
         }
 
-        public async Task<IActionResult> Archive(string searchString, int pageSize, SortOrder sort, DateTime from, DateTime to)
+        public async Task<IActionResult> SearchArchive(string searchString, int pageSize, SortOrder sort, DateTime from, DateTime to)
         {
+            if (pageSize != 0)
+            {
+                var listArticles = await _newsService.SearchArchive(searchString, pageSize, sort, from, to);
 
-            var listArticles = await _newsService.SearchArchive(searchString, pageSize, sort, from, to);
+                var listArticlesVM = listArticles.Adapt<IEnumerable<ArticleVM>>();
 
-            var listArticlesVM = listArticles.Adapt<IEnumerable<ArticleVM>>();
+                tempDataStorage = listArticlesVM.ToList();
 
-            return View(listArticlesVM);
+                return View(listArticlesVM);
+
+            }
+
+            return View(null);
         }
-        
-        public IActionResult Excel()
+
+        public IActionResult ExportToExcel()
         {
 
             using (var workbook = new XLWorkbook())
@@ -66,7 +74,7 @@ namespace NewsTask.Web.Controllers
                 worksheet.Cell(currentRow, 6).Value = "Published";
                 worksheet.Cell(currentRow, 7).Value = "Content";
 
-                foreach (var article in articlesTest)
+                foreach (var article in tempDataStorage)
                 {
                     currentRow++;
                     worksheet.Cell(currentRow, 1).Value = article.Title;
@@ -90,6 +98,32 @@ namespace NewsTask.Web.Controllers
                 }
 
             }
+        }
+
+        public IActionResult ExportToPdf()
+        {
+            PdfDocument doc = new PdfDocument();
+
+            PdfPage page = doc.Pages.Add();
+
+            PdfGrid pdfGrid = new PdfGrid();
+
+            pdfGrid.DataSource = tempDataStorage;
+            pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(10, 10));
+
+            MemoryStream stream = new MemoryStream();
+            doc.Save(stream);
+
+            stream.Position = 0;
+
+            doc.Close(true);
+
+            string contentType = "application/pdf";
+
+            string fileName = "Output.pdf";
+
+            return File(stream, contentType, fileName);
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

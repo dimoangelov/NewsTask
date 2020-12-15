@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace NewsTask.Web.Models
+﻿namespace NewsTask.Web.Models
 {
     public class SourceVM
     {

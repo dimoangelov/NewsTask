@@ -48,6 +48,6 @@ namespace NewsTask.Data.Enums
         ru,
         [Display(Name = "Serbia")]
         rs,
-        
+
     }
 }
